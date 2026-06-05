@@ -67,7 +67,7 @@ std::string Tokenizer::Lowercasing(const std::string &input) { //NOLINT
     std::string result;
     for (const char & i : input) {
         if (i >= 'A' && i <= 'Z') {
-            result.push_back(tolower(i)); //Clang-Tidy: Narrowing conversion from 'int' to signed type 'char' is implementation-defined
+            result.push_back(tolower(i)); //NOLUNT
         }
         else {
             result.push_back(i);
