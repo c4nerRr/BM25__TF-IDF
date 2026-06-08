@@ -4,6 +4,7 @@
 
 #include "Tokenizer.h"
 
+
 Tokenizer::Tokenizer() {
     stop_words.insert({"and", "a", "in", "the"});
 }
@@ -22,7 +23,7 @@ std::string Tokenizer::Punctuations_Removal(const std::string &input) { //NOLINT
     std::string result;
     //auto result = " ";
     for (const char & i : input) {
-        if (i == ',' || i == '!' || i == '?' || i == '.' || i == '/' || i == '(' || i == ')' || i == '[' || i == ']' || i == '{' || i == '}') {
+        if (std::ispunct(i)) {
             continue;
         }
         result += i;
@@ -65,7 +66,7 @@ std::vector<std::string> Tokenizer::Stop_Words_Removal(const std::vector<std::st
 
 std::string Tokenizer::Lowercasing(const std::string &input) { //NOLINT
     std::string result;
-    for (const char & i : input) {
+    for (const unsigned char & i : input) {
         if (i >= 'A' && i <= 'Z') {
             result.push_back(tolower(i)); //NOLUNT
         }

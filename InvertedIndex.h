@@ -4,6 +4,7 @@
 
 #ifndef BM25_C___INVERTEDINDEX_H
 #define BM25_C___INVERTEDINDEX_H
+#include <span>
 #include <string>
 #include <unordered_map>
 #include <vector>
@@ -18,7 +19,8 @@ class InvertedIndex {
         size_t doc_ID{}; //поле для айди
         std::vector<std::size_t> positions; //TF - частота слова
     };
-    std::vector<Position> GetPosting(const std::string &word) const;//список документов и позиций
+
+    std::span<const InvertedIndex::Position> GetPosting(const std::string &word);//список документов и позиций
     size_t GetTotalDocCounts() const;
     size_t GetDocumentsLength(size_t doc_id) const;
     size_t GetDocumentFrequency(const std::string& word) const;

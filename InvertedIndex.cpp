@@ -4,17 +4,20 @@
 
 #include "InvertedIndex.h"
 
+#include <span>
+
 
 InvertedIndex::InvertedIndex() = default;
 
 InvertedIndex::~InvertedIndex() = default;
 
 
-std::vector<InvertedIndex::Position> InvertedIndex::GetPosting(const std::string &word) const { //TF - для скора
-    if (!(inverted_index.contains(word))) {
+std::span<const InvertedIndex::Position> InvertedIndex::GetPosting(const std::string &word) {
+    const auto it = inverted_index.find(word);
+    if (it == inverted_index.end()) {
         return {};
     }
-    return inverted_index.at(word);
+    return it->second; //к значению через итератор
 }
 
 size_t InvertedIndex::GetTotalDocCounts() const { //N - колво доков в базе
@@ -22,10 +25,11 @@ size_t InvertedIndex::GetTotalDocCounts() const { //N - колво доков в
 }
 
 size_t InvertedIndex::GetDocumentsLength(const size_t doc_id) const { // |D| - длинна конкретного дока, чтоб штрафовать длинные тексты
-    if (!doc_lengths.contains(doc_id)) {
+    const auto it = doc_lengths.find(doc_id);
+    if (it == doc_lengths.end()) {
         return 0;
     }
-    return doc_lengths.at(doc_id);
+    return it->second;
 }
 
 size_t InvertedIndex::GetDocumentFrequency(const std::string &word) const { //doc.frequency(df) - в скольких уникальных доках встр. слово
