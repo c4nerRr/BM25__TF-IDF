@@ -13,3 +13,6 @@ add_executable(BM25_C__ main.cpp
         Scorer.cpp
         Scorer.h
         Types.h)
+
+find_package(ICU REQUIRED COMPONENTS uc)
+target_link_libraries(BM25_C__ PRIVATE ICU::uc)

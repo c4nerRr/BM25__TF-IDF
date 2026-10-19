@@ -8,20 +8,16 @@
 #include <string>
 #include <unordered_map>
 #include <vector>
+#include "Types.h"
 
 class InvertedIndex {
     public:
     InvertedIndex();
     ~InvertedIndex();
 
-
-    struct Position {
-        size_t doc_ID{}; //поле для айди
-        std::vector<std::size_t> positions; //TF - частота слова
-    };
-
-    std::span<const InvertedIndex::Position> GetPosting(const std::string &word);//список документов и позиций
+    std::span<const Position> GetPosting(const std::string &word) const;//список документов и позиций
     size_t GetTotalDocCounts() const;
+    double GetAverageDocumentLength() const;
     size_t GetDocumentsLength(size_t doc_id) const;
     size_t GetDocumentFrequency(const std::string& word) const;
     void AddDocument(size_t ID, const std::vector<std::string>& vector_token);
